@@ -22,4 +22,7 @@ void main(List<String> args) async {
 
   String data = await NetworkService.postData(map);
   print(data);
+
+  String deletedData = await NetworkService.deleteData('2');
+  print(deletedData);
 }
