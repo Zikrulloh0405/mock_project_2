@@ -1,13 +1,25 @@
+// import 'dart:convert';
+
 import 'modelling/modelling.dart';
 import 'network_services/network_services.dart';
 
 void main(List<String> args) async {
-  String data = await NetworkServices.getData(NetworkServices.apiProduct);
+  Task2 task2 = Task2(Device(
+      'Laptop',
+      'Asus',
+      'F-15',
+      2022,
+      'Black',
+      Display('type', '1920-1080', '144HZ'),
+      Processor('1080', 'F-15', 5, '123'),
+      Memory('16', '512', true, '1TB'),
+      Camera(Main('1000', '8000'), Front('9000', '80000')),
+      Battery('6000', 'aa', true),
+      Connectivity('bezprovodnoy', 'WiFi6', 'Bluetooth 6', ['USB', 'USB-C']),
+      Operating_system(['Windows-11'])));
 
-  List<Product> list1 = fromListToObject(data);
-  print(list1[0].availability.offline.store1);
+  Map<String, dynamic> map = task2.toJson();
 
-  for (var i = 0; i < list1.length; i++) {
-    print("Product ${i + 1} ${list1[i].details.specs.screen.type}");
-  }
+  String data = await NetworkService.postData(map);
+  print(data);
 }

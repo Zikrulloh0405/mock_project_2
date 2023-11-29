@@ -1,14 +1,19 @@
+import 'dart:convert';
+
 import 'package:http/http.dart';
 
+class NetworkService {
+  static const String baseUrl = "65570eb3bd4bcef8b611f610.mockapi.io";
+  static const String apiProduct = "/dart/project/device";
 
+  static const Map<String, String> headers = {
+    "Content-type": "application/json"
+  };
 
-class NetworkServices {
-  static const String baseUrl = "65606ee083aba11d99d0cb16.mockapi.io";
-  static const String apiProduct = "/product";
-
-  static Future<String> getData(String api) async {
-    Uri uri = Uri.https(baseUrl, api);
-    Response response = await get(uri);
-    return response.body;
+  static Future<String> postData(Map<String, dynamic> map) async {
+    Uri url = Uri.https(baseUrl, apiProduct);
+    Response response =
+        await post(url, body: jsonEncode(map), headers: headers);
+    return "Yoour data has been uploaded succesfully  ${response.body}";
   }
 }
